@@ -1,0 +1,29 @@
+version: 3.8
+
+services:
+  item-app:
+    image: ghcr.io/untillnesss/item-app:v2
+    container_name: item-app
+    ports:
+      - 8888:8080
+    restart: unless-stopped
+    networks:
+      - item-network
+
+  item-db:
+    image: mongo:3
+    container_name: item-db
+    volumes:
+      - app-db:/data/db
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+    networks:
+      - item-network
+
+volumes:
+  app-db:
+
+networks:
+  item-network:
+    driver: bridge
