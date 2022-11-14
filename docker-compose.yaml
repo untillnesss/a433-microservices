@@ -13,7 +13,7 @@ services:
 
     # Menangkap PORT 8080 yang di Ekspos, dan dikaitkan ke PORT 8888 pada Host
     ports:
-      - 8888:8080
+      - 80:8080
 
     # Restart policy kecuali-dihentikan
     restart: unless-stopped
