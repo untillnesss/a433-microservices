@@ -1,29 +1,55 @@
+# Menggunakan versi docker compose 3.8
 version: "3.8"
 
+# Mendefinisikan service
 services:
+  # Service Aplikasi
   item-app:
+    # Menggunakan image item-app yang sudah di build sebelumnya
     image: ghcr.io/untillnesss/item-app:v2
+
+    # Memberikan nama containernya
     container_name: item-app
+
+    # Menangkap PORT 8080 yang di Ekspos, dan dikaitkan ke PORT 8888 pada Host
     ports:
       - 8888:8080
+
+    # Restart policy kecuali-dihentikan
     restart: unless-stopped
+
+    # Menghubungkan ke docker network
     networks:
       - item-network
 
+  # Service Database
   item-db:
+    # Menggunakan image mongo versi 3
     image: mongo:3
+
+    # Memberikan nama containernya
     container_name: item-db
+
+    # Menghubungkan volume app-db, dengan lokasi yang di dalam container
     volumes:
       - app-db:/data/db
+
+    # Menangkap PORT 27017 yang di Ekspos, dan dikaitkan ke PORT 27017 pada Host
     ports:
       - 27017:27017
+
+    # Restart policy kecuali-dihentikan
     restart: unless-stopped
+
+    # Menghubungkan ke docker network
     networks:
       - item-network
 
+# Mendefinisikan Volume name untuk digunakan Service
 volumes:
   app-db:
 
+# Mendefinisikan Network name untuk digunakan Service
 networks:
   item-network:
     driver: bridge

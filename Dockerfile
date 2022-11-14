@@ -12,7 +12,6 @@ ENV NODE_ENV=production DB_HOST=item-db
 
 # Menjalankan command untuk menginstall package npm
 RUN npm install --production --unsafe-perm && npm run build
-# RUN npm -v
 
 # Mengeluarkan atau membuka port 8080 di sambugkan ke node app
 EXPOSE 8080
