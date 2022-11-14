@@ -16,17 +16,17 @@ if [ -z "${PASSWORD_DOCKER_HUB}" ]; then
     exit 0
 fi
 
-# Cek argumen dari pemanggilan file
-if [ -z "${1}" ]; then
-    echo "Silahkan masukkan minimal 1 argumen berisi versi yang akan dibuild"
-    exit 0
-fi
+# Build image
+docker build -t item-app:v1 .
+
+# Melihat daftar image di local
+docker images -a
+
+# Rename image name, using Github Container Image Registery
+docker image tag item-app:v1 ghcr.io/$USERNAME_DOCKER_HUB/item-app:v1 .
 
 # Melakukan docker login menggunakan provider Github Container Image Registery
 echo $PASSWORD_DOCKER_HUB | docker login ghcr.io -u $USERNAME_DOCKER_HUB --password-stdin
 
-# Build image
-docker build -t ghcr.io/$USERNAME_DOCKER_HUB/item-app:v$1 .
-
 # Push image ke Github Container Image Registery
-docker push ghcr.io/$USERNAME_DOCKER_HUB/item-app:v$1
+docker push ghcr.io/$USERNAME_DOCKER_HUB/item-app:v1
