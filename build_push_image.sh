@@ -23,7 +23,7 @@ docker build -t item-app:v1 .
 docker images -a
 
 # Rename image name, using Github Container Image Registery
-docker image tag item-app:v1 ghcr.io/$USERNAME_DOCKER_HUB/item-app:v1 .
+docker image tag item-app:v1 ghcr.io/$USERNAME_DOCKER_HUB/item-app:v1
 
 # Melakukan docker login menggunakan provider Github Container Image Registery
 echo $PASSWORD_DOCKER_HUB | docker login ghcr.io -u $USERNAME_DOCKER_HUB --password-stdin
