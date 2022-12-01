@@ -21,6 +21,7 @@ type application struct {
 func main() {
 	client, err := openDB()
 	if err != nil {
+		log.Fatal("error kak")
 		log.Fatal(err)
 	}
 
@@ -39,6 +40,7 @@ func main() {
 	}
 
 	log.Printf("application running on port %s", os.Getenv("APP_PORT"))
+	log.Printf("mongodb://%s:%s@%s:27017/?authsource=admin", os.Getenv("MONGO_USER"), os.Getenv("MONGO_PASS"), os.Getenv("MONGO_HOST"))
 	if err := http.ListenAndServe(fmt.Sprintf(":%s", os.Getenv("APP_PORT")), app.routes()); err != nil {
 		log.Fatal(err)
 	}
