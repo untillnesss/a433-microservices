@@ -56,7 +56,6 @@ jobs:
       - run: go test -v -short --count=1 $(go list ./...)
   
   build-app-karsajobs:
-    context: main-context
     executor: docker/machine
     steps:
       - checkout
@@ -67,8 +66,10 @@ jobs:
             PASSWORD_DOCKER_HUB: $PASSWORD_DOCKER_HUB
 
 workflows:
-  lint-dockerfile:
+  circle-ci-said:
     jobs:
       - lint-dockerfile
       - test-app
-      - build-app-karsajobs
+      - build-app-karsajobs:
+          context: my_context_name
+
