@@ -1,34 +1,52 @@
 # .circleci/config.yml
 
-version: 2.1
+# version: 2.1
 
-jobs:
-  # This build job just tests that the binary can build. If your project is a
-  # library, not a binary, you don't need this build job. In other words, omit
-  # this job if you don't have a func main() in your project.
-  build:
-    docker:
-      - image: golang:1.15-alpine
-    working_directory: /go/src/github.com/dicodingacademy/karsajobs
-    steps: 
-      - checkout
-  lint:
-    docker:
-      - image: golangci/golangci-lint:v1.37-alpine
-    steps:
-      - checkout
-      - run: golangci-lint run
-  test:
-    docker:
-      - image: golang:1.16
-    working_directory: /go/src/github.com/dicodingacademy/karsajobs
-    steps:
-      - checkout
-      - run: go test -v -short --count=1 $(go list ./...)
+# jobs:
+#   # This build job just tests that the binary can build. If your project is a
+#   # library, not a binary, you don't need this build job. In other words, omit
+#   # this job if you don't have a func main() in your project.
+#   build:
+#     docker:
+#       - image: golang:1.15-alpine
+#     working_directory: /go/src/github.com/dicodingacademy/karsajobs
+#     steps:
+#       - checkout
+#       - run: mkdir /build
+#       - run: go build -o /build/ ./...
+#   lint:
+#     docker:
+#       - image: golangci/golangci-lint:v1.37-alpine
+#     steps:
+#       - checkout
+#       - run: golangci-lint run
+#   test:
+#     docker:
+#       - image: golang:1.16
+#     working_directory: /go/src/github.com/dicodingacademy/karsajobs
+#     steps:
+#       - checkout
+#       - run: go test -v -short --count=1 $(go list ./...)
 
+# workflows:
+#   build_lint_test:
+#     jobs:
+#       - build
+#       - lint
+#       - test
+
+version: "2.1"
+orbs:
+  docker: circleci/docker@x.y.z
+  jobs:
+    lint:
+      executor: docker/machine
+      steps:
+        - checkout
+        - docker/dockerlint:
+            dockerfile: ./Dockerfile
+            treat-warnings-as-errors: true
 workflows:
-  build_lint_test:
+  lint-dockerfile:
     jobs:
-      - build
       - lint
-      - test
