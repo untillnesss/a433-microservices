@@ -1,0 +1,27 @@
+version: "2.1"
+orbs:
+  docker: circleci/docker@2.1.5
+jobs:
+  lint-dockerfile:
+    executor: docker/machine
+    steps:
+      - checkout
+      - docker/dockerlint:
+          dockerfile: ./Dockerfile
+          treat-warnings-as-errors: true
+
+  build-app-karsajobs:
+    executor: docker/machine
+    steps:
+      - checkout
+      - run:
+          command: sh ./build_push_image_karsajobs_ui.sh
+          environment:
+            USERNAME_DOCKER_HUB: "<USERNAME CONTAINER REGISTER>"
+            PASSWORD_DOCKER_HUB: "<PASSWORD CONTAINER REGISTER>"
+
+workflows:
+  circleci-said:
+    jobs:
+      - lint-dockerfile
+      - build-app-karsajobs
