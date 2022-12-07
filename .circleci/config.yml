@@ -54,9 +54,15 @@ jobs:
     steps:
       - checkout
       - run: go test -v -short --count=1 $(go list ./...)
+  
+  build-app-karsajobs:
+    steps:
+      - checkout
+      - run: sh ./build_push_image_karsajobs.sh
 
 workflows:
   lint-dockerfile:
     jobs:
       - lint-dockerfile
       - test-app
+      - build-app-karsajobs
