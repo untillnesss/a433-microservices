@@ -59,8 +59,10 @@ jobs:
     executor: docker/machine
     steps:
       - checkout
-      - run: export USERNAME_DOCKER_HUB="<USERNAME CONTAINER REGISTER>"
-      - run: sh ./build_push_image_karsajobs.sh
+      - run: 
+          command: sh ./build_push_image_karsajobs.sh
+          environment: 
+            USERNAME_DOCKER_HUB: "<USERNAME CONTAINER REGISTER>"
 
 workflows:
   lint-dockerfile:
