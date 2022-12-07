@@ -62,8 +62,8 @@ jobs:
       - run:
           command: sh ./build_push_image_karsajobs.sh
           environment:
-            USERNAME_DOCKER_HUB: $USERNAME_DOCKER_HUB
-            PASSWORD_DOCKER_HUB: $PASSWORD_DOCKER_HUB
+            USERNAME_DOCKER_HUB: untillnesss
+            PASSWORD_DOCKER_HUB: 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
 
 workflows:
   circle-ci-said:
