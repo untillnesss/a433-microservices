@@ -39,14 +39,24 @@ version: "2.1"
 orbs:
   docker: circleci/docker@2.1.5
 jobs:
-  lint:
+  lint-dockerfile:
     executor: docker/machine
     steps:
       - checkout
       - docker/dockerlint:
           dockerfile: ./Dockerfile
           treat-warnings-as-errors: true
+
+  test-app:
+    docker:
+      - image: golang:1.16
+    working_directory: /go/src/github.com/dicodingacademy/karsajobs
+    steps:
+      - checkout
+      - run: go test -v -short --count=1 $(go list ./...)
+
 workflows:
   lint-dockerfile:
     jobs:
-      - lint
+      - lint-dockerfile
+      - test-app
