@@ -54,21 +54,20 @@ jobs:
     steps:
       - checkout
       - run: go test -v -short --count=1 $(go list ./...)
-
+  
   build-app-karsajobs:
     executor: docker/machine
     steps:
       - checkout
-      - run:
+      - run: 
           command: sh ./build_push_image_karsajobs.sh
-          environment:
-            USERNAME_DOCKER_HUB: untillnesss
-            PASSWORD_DOCKER_HUB: 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
+          environment: 
+            USERNAME_DOCKER_HUB: "<USERNAME CONTAINER REGISTER>"
+            PASSWORD_DOCKER_HUB: "<PASSWORD CONTAINER REGISTER>"
 
 workflows:
-  circle-ci-said:
+  lint-dockerfile:
     jobs:
       - lint-dockerfile
       - test-app
-      - build-app-karsajobs:
-          context: main-context
+      - build-app-karsajobs
