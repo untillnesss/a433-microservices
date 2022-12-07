@@ -10,6 +10,8 @@ jobs:
     docker:
       - image: golang:1.15-alpine
     working_directory: /go/src/github.com/dicodingacademy/karsajobs
+    steps: 
+      - checkout
   lint:
     docker:
       - image: golangci/golangci-lint:v1.37-alpine
