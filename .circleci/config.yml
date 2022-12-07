@@ -38,14 +38,14 @@
 version: "2.1"
 orbs:
   docker: circleci/docker@2.1.5
-  jobs:
-    lint:
-      executor: docker/machine
-      steps:
-        - checkout
-        - docker/dockerlint:
-            dockerfile: ./Dockerfile
-            treat-warnings-as-errors: true
+jobs:
+  lint:
+    executor: docker/machine
+    steps:
+      - checkout
+      - docker/dockerlint:
+          dockerfile: ./Dockerfile
+          treat-warnings-as-errors: true
 workflows:
   lint-dockerfile:
     jobs:
