@@ -37,7 +37,7 @@
 
 version: "2.1"
 orbs:
-  docker: circleci/docker@x.y.z
+  docker: circleci/docker@2.1.5
   jobs:
     lint:
       executor: docker/machine
